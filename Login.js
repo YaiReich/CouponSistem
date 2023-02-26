@@ -31,8 +31,9 @@ const Login = () => {
             headers: { "Content-Type": "application/json" }
         })
             .then((response) => response.json())
-            .then((data) => dispatch(login(data.token)))
+            .then((data) => dispatch(login({ token: data.token, type: type })))
             .catch((error) => console.error(error));
+        console.log(type)
     };
 
     return (
