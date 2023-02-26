@@ -1,16 +1,20 @@
 import Coupon from "./Coupon";
 
 const CouponList = ({coupons}) => {
+
     return (
-        <>
+        <div style={{
+            marginTop: '10px'
+        }}>
             {coupons.map((coupon) => {
-                return <Coupon key={coupon.id}
+                return <Coupon id={coupon.id}
                                title={coupon.title}
                                price={coupon.price}
                                text={coupon.description}
-                               imageUrl={coupon.imageUrl}/>
+                               imageUrl={coupon.imageUrl}
+                               endDate={coupon.endDate}/>
             })}
-        </>
+        </div>
     );
 }
 
