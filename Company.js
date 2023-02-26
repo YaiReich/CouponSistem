@@ -1,7 +1,7 @@
 import {useState} from "react";
 import CouponList from "../components/CouponList";
 import AddCoupon from "../components/AddCoupon";
-import addCoupon from "../components/AddCoupon";
+import {Button} from 'react-bootstrap';
 
 const Company = ({token}) => {
 
@@ -40,31 +40,25 @@ const Company = ({token}) => {
         content = <CouponList coupons={coupons}/>
     }
 
-    const handelAddCoupon = (coupon, token) => {
-        fetch(`http://localhost:8080/api/company/create/${token}`,{
-            method: 'POST',
-            headers:{
-                "Content-Type":"application/Json"
-            },
-            body: JSON.stringify(coupon)
-        })
-            .then((response)=>{
-            return response.json()
-        })
-            .then((addCoupon) => {
-                console.log(addCoupon);
-            })
+    const [currentVisibility, updateVisibility] = useState(false)
+
+    const toggleVisibility = () => {
+        updateVisibility(!currentVisibility)
     }
 
     return (
-        <>
-            <button onClick={() => {
-                fetchCoupons(token)
-            }}>Fetch
-            </button>
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            marginTop: '20px'
+        }}>
+            <Button variant="info" onClick={() => {fetchCoupons(token)}}>Fetch</Button>
             {content}
-            <AddCoupon onAddCoupon={handelAddCoupon}/>
-        </>
+            <Button variant="success" onClick={toggleVisibility} style={{margin: '20px'}}>Toggle to add new coupon</Button>
+            {currentVisibility && <AddCoupon token={token} style={{marginTop: '20px'}}/>}
+        </div>
     )
 }
 
